@@ -42,6 +42,7 @@ Follow the below steps to deploy and run the service on Cloud Run and then to ch
    ```
 
    * If you are prompted to enable the Artifact Registry API, respond by pressing `y`.
+   * If you are prompted about a repository to be created, respond by pressing `y`.
    * You will be prompted to **allow unauthenticated invocations**: respond `y`.
 
    Wait for deployment to complete.
