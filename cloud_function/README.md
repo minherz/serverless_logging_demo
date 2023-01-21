@@ -26,7 +26,7 @@ Follow the below steps to deploy and run the Cloud Functions instance and then t
 1. Setup your project and deployment location:
 
    ```bash
-   export YOUR_PROJECT_ID="place your project id here"
+   export PROJECT_ID="place your project id here"
    export REGION="us-central1"
    export FUNC_NAME="logging-test-function"
    ```
@@ -40,7 +40,7 @@ Follow the below steps to deploy and run the Cloud Functions instance and then t
     --source=./serverless_logging_demo/cloud_function \
     --runtime=java11 --trigger-http \
     --entry-point="com.google.example.helloworld.HelloWorldFunction" \
-    --project=$YOUR_PROJECT_ID --region=$REGION
+    --project=$PROJECT_ID --region=$REGION
    ```
 
    * If you are prompted to enable the Artifact Registry API, respond by pressing `y`.
@@ -51,17 +51,17 @@ Follow the below steps to deploy and run the Cloud Functions instance and then t
 1. Run `curl` command to trigger the function execution and log ingestion:
 
    ```bash
-   FUNC_URL=$(gcloud functions describe $FUNC_NAME --project=$YOUR_PROJECT_ID --format="value(httpsTrigger.url)")
+   FUNC_URL=$(gcloud functions describe $FUNC_NAME --project=$PROJECT_ID --format="value(httpsTrigger.url)")
    curl $SERVICE_URL 
    ```
 
 1. Open the following URL to see logs in your project:
 
    ```terminal
-   https://console.cloud.google.com/logs/query?project=YOUR_PROJECT_ID
+   https://console.cloud.google.com/logs/query?project=PROJECT_ID
    ```
 
-   Mind to use the same `YOUR_PROJECT_ID` as you used in the setup step.
+   Mind to use the same `PROJECT_ID` as you used in the setup step.
 
 1. In the [Query pane][2] query for the service logs. Type:
 

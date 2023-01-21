@@ -26,7 +26,7 @@ Follow the below steps to deploy and run the service on Cloud Run and then to ch
 1. Setup your project and deployment location:
 
    ```bash
-   export YOUR_PROJECT_ID="place your project id here"
+   export PROJECT_ID="place your project id here"
    export REGION="us-central1"
    export SVC_NAME="logging-test-svc"
    ```
@@ -38,7 +38,7 @@ Follow the below steps to deploy and run the service on Cloud Run and then to ch
    ```bash
    gcloud run deploy $SVC_NAME \
     --source=./serverless_logging_demo/cloud_run \
-    --project=$YOUR_PROJECT_ID --region=$REGION
+    --project=$PROJECT_ID --region=$REGION
    ```
 
    * If you are prompted to enable the Artifact Registry API, respond by pressing `y`.
@@ -49,24 +49,24 @@ Follow the below steps to deploy and run the service on Cloud Run and then to ch
 1. Run `curl` command to trigger the handler execution and log ingestion:
 
    ```bash
-   SERVICE_URL=$(gcloud run services describe $SVC_NAME --project=$YOUR_PROJECT_ID --region=$REGION --format="value(status.url)")
+   SERVICE_URL=$(gcloud run services describe $SVC_NAME --project=$PROJECT_ID --region=$REGION --format="value(status.url)")
    curl -H "traceparent: 00-0af7651916cd43dd8448eb211c80319c-b7ad6b7169203331-01" $SERVICE_URL 
    ```
 
    If you want to test it with Google trace context run:
 
    ```bash
-   SERVICE_URL=$(gcloud run services describe $SVC_NAME --project=$YOUR_PROJECT_ID --region=$REGION --format="value(status.url)")
+   SERVICE_URL=$(gcloud run services describe $SVC_NAME --project=$PROJECT_ID --region=$REGION --format="value(status.url)")
    curl -H "X-Cloud-Trace-Context: 105445aa7843bc8bf206b12000100000/1;o=1" $SERVICE_URL 
    ```
 
 1. Open the following URL to see logs in your project:
 
    ```terminal
-   https://console.cloud.google.com/logs/query?project=YOUR_PROJECT_ID
+   https://console.cloud.google.com/logs/query?project=PROJECT_ID
    ```
 
-   Mind to use the same `YOUR_PROJECT_ID` as you used in the setup step.
+   Mind to use the same `PROJECT_ID` as you used in the setup step.
 
 1. In the [Query pane][2] query for the service logs. Type:
 
