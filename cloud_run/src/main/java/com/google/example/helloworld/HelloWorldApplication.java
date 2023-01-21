@@ -26,7 +26,7 @@ public class HelloWorldApplication {
 
 		HelloWorldApplication.Log(Severity.INFO, "helloworld is launched", null);
 
-		SpringApplication.run(HelloworldApplication.class, args);
+		SpringApplication.run(HelloWorldApplication.class, args);
 	}
 
 	public static void Log(Severity severity, String payload, Map<String, String> labels) {
