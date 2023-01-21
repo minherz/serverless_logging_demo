@@ -51,7 +51,7 @@ Follow the below steps to deploy and run the Cloud Functions instance and then t
 1. Run `curl` command to trigger the function execution and log ingestion:
 
    ```bash
-   FUNC_URL=$(gcloud functions describe $FUNC_NAME --project=$PROJECT_ID --format="value(httpsTrigger.url)")
+   FUNC_URL=$(gcloud functions describe $FUNC_NAME --project=$PROJECT_ID --format="value(serviceConfig.uri)")
    curl $FUNC_URL 
    ```
 
