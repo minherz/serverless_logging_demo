@@ -52,7 +52,7 @@ Follow the below steps to deploy and run the Cloud Functions instance and then t
 
    ```bash
    FUNC_URL=$(gcloud functions describe $FUNC_NAME --project=$PROJECT_ID --format="value(httpsTrigger.url)")
-   curl $SERVICE_URL 
+   curl $FUNC_URL 
    ```
 
 1. Open the following URL to see logs in your project:
