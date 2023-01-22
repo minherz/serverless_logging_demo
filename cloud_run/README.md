@@ -69,6 +69,8 @@ Follow the below steps to deploy and run the service on Cloud Run and then to ch
    ```
 
    Press "Run Query" button (at top right above the pane).
+   You will see entries like below with the `resource` field
+   populated with Cloud Run metadata: ![Cloud Run log entry][logs]
 
 ## Clean up
 
@@ -80,3 +82,4 @@ To remove after-run charges you might want to delete the following resources:
 
 [1]: https://cloud.google.com/logging/docs/reference/libraries
 [2]: https://cloud.google.com/logging/docs/view/logs-explorer-interface#query-builder
+[logs]: ../images/cloud_run_log.png

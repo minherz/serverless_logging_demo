@@ -70,6 +70,8 @@ Follow the below steps to deploy and run the Cloud Functions instance and then t
    ```
 
    Press "Run Query" button (at top right above the pane).
+   You will see entries like below with the `resource` field
+   populated with Cloud Functions metadata: ![Cloud Functions log entry][logs]
 
 ## Clean up
 
@@ -81,3 +83,4 @@ To remove after-run charges you might want to delete the following resources:
 
 [1]: https://cloud.google.com/logging/docs/reference/libraries
 [2]: https://cloud.google.com/logging/docs/view/logs-explorer-interface#query-builder
+[logs]: ../images/cloud_functions_log.png
