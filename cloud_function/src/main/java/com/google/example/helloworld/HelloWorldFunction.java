@@ -3,10 +3,13 @@ package com.google.example.helloworld;
 import java.io.BufferedWriter;
 import java.util.Collections;
 import java.util.Map;
+import java.util.Optional;
 
 import com.google.cloud.functions.HttpFunction;
 import com.google.cloud.functions.HttpRequest;
 import com.google.cloud.functions.HttpResponse;
+import com.google.cloud.logging.Context;
+import com.google.cloud.logging.ContextHandler;
 import com.google.cloud.logging.LogEntry;
 import com.google.cloud.logging.Logging;
 import com.google.cloud.logging.LoggingOptions;
@@ -22,6 +25,7 @@ public class HelloWorldFunction implements HttpFunction {
 
   public void service(final HttpRequest request, final HttpResponse response) throws Exception {
     final BufferedWriter writer = response.getWriter();
+    setupRequestContext(request);
 
     try (Logging logging = LoggingOptions.getDefaultInstance().getService()) {
       logging.setWriteSynchronicity(Synchronicity.SYNC);
@@ -30,6 +34,8 @@ public class HelloWorldFunction implements HttpFunction {
       Log(logging, Severity.INFO, Map.of("method", "service", "action", "end"), CONTROLLER_LABELS);
     }
     writer.write("Greetings, World! Hello from Cloud Functions!");
+
+    cleanupRequestContext();
   }
 
   private void emulatingWork(Logging logging) {
@@ -41,6 +47,24 @@ public class HelloWorldFunction implements HttpFunction {
       Log(logging, Severity.WARNING, "sleep was interrupted", CONTROLLER_LABELS);
     }
     Log(logging, Severity.INFO, Map.of("method", "emulatingWork", "action", "end"), CONTROLLER_LABELS);
+  }
+
+  private void setupRequestContext(HttpRequest request) {
+    var contextBuilder = Context.newBuilder().setRequestUrl(request.getUri());
+    var header = request.getFirstHeader("traceparent").orElse("");
+    if (header != "") {
+      contextBuilder.loadW3CTraceParentContext(header);
+    } else {
+      header = request.getFirstHeader("X-Cloud-Trace-Context").orElse("");
+      contextBuilder.loadCloudTraceContext(header);
+    }
+    ContextHandler handler = new ContextHandler();
+    handler.setCurrentContext(contextBuilder.build());
+  }
+
+  private void cleanupRequestContext() {
+    ContextHandler handler = new ContextHandler();
+    handler.removeCurrentContext();
   }
 
   private static void Log(Logging logging, Severity severity, String payload, Map<String, String> labels) {

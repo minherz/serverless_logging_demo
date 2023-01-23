@@ -73,6 +73,20 @@ Follow the below steps to deploy and run the Cloud Functions instance and then t
    You will see entries like below with the `resource` field
    populated with Cloud Functions metadata: ![Cloud Functions log entry][logs]
 
+   You can explicitly set the trace context and see it captured in the logs run the following commands:
+
+   * For Google Cloud trace context:
+
+     ```bash
+     curl -H "X-Cloud-Trace-Context: 105445aa7843bc8bf206b12000100000/1;o=1" $FUNC_URL
+     ```
+
+   * For W3C trace context:
+
+     ```bash
+     curl -H "traceparent: 00-0af7651916cd43dd8448eb211c80319c-b7ad6b7169203331-01" $FUNC_URL
+     ```
+
 ## Clean up
 
 To remove after-run charges you might want to delete the following resources:
